@@ -35,7 +35,6 @@ def wor2grey(colourwor,greywor):
             print('Old row: ' + row)
 
             for colour in clist:
-                #print(colour)
                 c = str(colour[0])
                 b1 = r'(Brush\s[(]+[0-9]+,)(' + c + ')'
                 b2 = r'(Brush\s[(]+[0-9]+,[0-9]+,)(' + c + ')'
@@ -56,7 +55,6 @@ def wor2grey(colourwor,greywor):
             worfile.write(l) 
           
 
-#TAB
 def getRGBs(file):
     print('Gettnig RGB for: '+file)
     f = open(file)
