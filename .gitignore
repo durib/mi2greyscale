@@ -1,0 +1,4 @@
+*.pyc
+*.WOR
+*.wox
+.vscode/settings.json
