@@ -3,22 +3,22 @@
 
 #https://regex101.com/r/PA2UHW/1
 
-import xml.etree.ElementTree as ET
-import fnmatch
-import os, csv, re, csv
+import os, re
 
 workspace = "D:\\Projects\\Python\\mi2greyscale\\wor\\map.WOR"
 output = "D:\\Projects\\Python\\mi2greyscale\\wor\\map_grey.WOR"
 
+# object to store RBV values
 class RGB:
     def __init__(self,r = 0,g = 0,b = 0):
         self.red = r
         self.green = g
         self.blue = b
 
+# Takes a colour workspace and produces a greyscale version
 def wor2grey(colourwor,greywor):
     print('Colour WOR: ' +colourwor)
-    colourset = set(getRGBs(colourwor))
+    colourset = set(getColours(colourwor))
     print('Colour set: ')
     print(colourset)
     clist = colourlist(colourset)
@@ -54,8 +54,8 @@ def wor2grey(colourwor,greywor):
         for l in out:
             worfile.write(l) 
           
-
-def getRGBs(file):
+# gets list of colours from workspace
+def getColours(file):
     print('Gettnig RGB for: '+file)
     f = open(file)
     lines = f.readlines()
@@ -95,28 +95,33 @@ def getRGBs(file):
 
     return colours
 
+# adds greyscale to colour list
 def colourlist(colours):
     cl = []
     for c in colours:
         cl.append([c,mi2grey(c)])
     return(cl)
 
+# converts an MapInfo colour to greyscale
 def mi2grey(mi):
     return grey2mi(rgb2grey(mi2rgb(mi)))
 
+# converts an RGB to greyscale
 def rgb2grey(rgb):
     return int((0.3 * rgb.red) + (0.59 * rgb.green) + (0.11 * rgb.blue))
 
+# converts MapInfo colour to rgb
 def mi2rgb(mi):
     r = mi // 65536
     g = (mi - r * 65536) // 256
     b = mi - r * 65536 - g * 256
     return RGB(r,g,b)
 
+# converts a grey value to MapInfo colour
 def grey2mi(grey):
     return ((grey*256*256)+(grey*256)+grey)
 
-
+# converts a rgb to MapInfo colour
 def rgb2mi(rgb):
     return ((rgb.red*256*256)+(rgb.green*256)+rgb.blue)
 
