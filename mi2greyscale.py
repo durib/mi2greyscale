@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 import fnmatch
 import os, csv, re, csv
 
-workspace = "D:\\Projects\\Python\\RGb2GREY\\wor\\map.WOR"
-output = "D:\\Projects\\Python\\RGb2GREY\\wor\\map_grey.WOR"
+workspace = "D:\\Projects\\Python\\mi2greyscale\\wor\\map.WOR"
+output = "D:\\Projects\\Python\\mi2greyscale\\wor\\map_grey.WOR"
 
 class RGB:
     def __init__(self,r = 0,g = 0,b = 0):
@@ -37,7 +37,7 @@ def wor2grey(colourwor,greywor):
             for colour in clist:
                 c = str(colour[0])
                 b1 = r'(Brush\s[(]+[0-9]+,)(' + c + ')'
-                b2 = r'(Brush\s[(]+[0-9]+,[0-9]+,)(' + c + ')'
+                b2 = r'(Brush\s[(]+[0-9]+[,][0-9]+[,])(' + c + ')'
                 p = r'(Pen\s[(]+[0-9]+,[0-9]+,)(' + c + ')'
                 l = r'(Line\s[(]+[0-9]+,[0-9]+,)(' + c + ')'
                 s = r'(Symbol\s[(]+[0-9]+,)(' + c + ')'
@@ -88,7 +88,7 @@ def getRGBs(file):
             mi = int(sym.group(1))
             colours.append(mi)
 
-        font = re.search(r'Font\s[(]"[a-zA-Z]+",[0-9]+,[0-9]+,([0-9])', row)
+        font = re.search(r'Font\s[(]"[a-zA-Z]+",[0-9]+,[0-9]+,([0-9]+)', row)
         if (font):
             mi_f = int(font.group(1))
             colours.append(mi_f)
